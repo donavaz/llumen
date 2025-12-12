@@ -34,6 +34,7 @@ mod config;
 mod errors;
 mod middlewares;
 mod openrouter;
+mod providers;
 mod routes;
 // TODO: rewrite runner(along with repl tool)
 #[allow(dead_code)]
@@ -270,6 +271,7 @@ async fn main() {
                 .nest("/user", routes::user::routes())
                 .nest("/message", routes::message::routes())
                 .nest("/model", routes::model::routes())
+                .nest("/provider", routes::provider::routes())
                 .layer(middlewares::compression::ZstdCompressionLayer)
                 // only compress plain text content
                 .nest("/file", routes::file::routes())

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
-	import { Star, X } from '@lucide/svelte';
+	import { Star, X, Sparkles } from '@lucide/svelte';
 	import { CircleUser, EthernetPort, LogOut, ShieldUser } from '@lucide/svelte';
 	import { token } from '$lib/store';
 	import { clearCache } from '$lib/api/state';
@@ -11,9 +11,10 @@
 	import Openrouter from './tabs/Openrouter.svelte';
 	import OpenrouterNew from './tabs/openrouter/OpenrouterNew.svelte';
 	import OpenrouterEdit from './tabs/openrouter/OpenrouterEdit.svelte';
+	import Providers from './tabs/Providers.svelte';
 
 	let { open = $bindable() } = $props();
-	let value = $state('account');
+	let value = $state('providers');
 	let id: undefined | number = $state(undefined);
 </script>
 
@@ -40,6 +41,14 @@
 					class="flex flex-col justify-between border-r-2 border-outline pr-2 text-xl md:w-70"
 				>
 					<div class="flex flex-col space-y-2">
+						<Tabs.Trigger
+							value="providers"
+							class="cursor-pointer rounded px-3 py-2 text-left duration-150 hover:bg-primary hover:text-text-hover
+						data-[state=active]:bg-primary data-[state=active]:text-text-hover"
+						>
+							<Sparkles class="inline-block h-5 w-5 md:mr-2" />
+							<span class="hidden md:inline-block"> AI Providers </span>
+						</Tabs.Trigger>
 						<Tabs.Trigger
 							value="account"
 							class="cursor-pointer rounded px-3 py-2 text-left duration-150 hover:bg-primary hover:text-text-hover
@@ -91,6 +100,10 @@
 					</div>
 				</Tabs.List>
 				<div class="h-full w-full min-w-0 flex-1 justify-center p-3">
+					<Tabs.Content value="providers" class="flex h-full flex-col">
+						<Dialog.Title class="pb-6 text-center text-xl">AI Providers</Dialog.Title>
+						<Providers />
+					</Tabs.Content>
 					<Tabs.Content value="account">
 						<Dialog.Title class="pb-6 text-center text-xl">
 							{$_('setting.account_settings')}
